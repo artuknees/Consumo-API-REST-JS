@@ -14,9 +14,7 @@
         text-align: center;
     }
     .imageContainer{
-        width: 600px;
-        height: 600px;
-        object-fit: cover;
+        width: 150px;
     }
     .buttonContainer {
         text-align: center;
@@ -36,15 +34,38 @@
 
 </style>
 <body>
-    <h1>Gatitos aleatorios</h1>
+    <h1>Gatitos app</h1>
 
-    <div class="containerImg">
-        <img class="imageContainer" alt="foto-gatito-random">
-    </div>
+    <section id="randomMichis">
+        <h2>Gatitos aleatorios</h2>
+        <article>
+            <img id="image1" class="imageContainer" alt="foto-gatito-random">
+            <button>Guardar en favoritos</button>
+        </article>
+        
+        <article>
+            <img id="image2" class="imageContainer" alt="foto-gatito-random">
+            <button>Guardar en favoritos</button>
+        </article>
 
-    <div class="buttonContainer">
-        <button type="button" onclick="onClickNewImage()">Show new Image</button>
-    </div>
+        <article>
+            <img id="image3" class="imageContainer" alt="foto-gatito-random">
+            <button>Guardar en favoritos</button>
+        </article>
+
+        <div class="buttonContainer">
+            <button type="button" onclick="onClickNewImage()">Recargar</button>
+        </div>
+    </section>
+
+    <section id="favoritesMichis">
+        <h2>Gatitos favoritos</h2>
+        <article>
+            <img id="image3" class="imageContainer" alt="foto-gatito-random">
+            <button>Sacar de favoritos</button>
+        </article>
+    </section>
+
     <script src="./main.js"></script>
 </body>
 </html>
