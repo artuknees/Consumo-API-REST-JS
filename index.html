@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatitos aleatorios</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+    .containerImg {
+        text-align: center;
+    }
+    .imageContainer{
+        width: 600px;
+        height: 600px;
+        object-fit: cover;
+    }
+    .buttonContainer {
+        text-align: center;
+    }
+    .buttonContainer button {
+        font-size: 16px;
+        font-weight: bold;
+        border: solid 1px gold;
+        height: 46px;
+        border-radius: 21px;
+        color: blue;
+    }
+    .buttonContainer button:hover {
+        cursor: pointer;
+        background-color: aquamarine;
+    }
+
+</style>
+<body>
+    <h1>Gatitos aleatorios</h1>
+
+    <div class="containerImg">
+        <img class="imageContainer" alt="foto-gatito-random">
+    </div>
+
+    <div class="buttonContainer">
+        <button type="button" onclick="onClickNewImage()">Show new Image</button>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>
