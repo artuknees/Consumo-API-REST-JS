@@ -36,6 +36,8 @@
 <body>
     <h1>Gatitos app</h1>
 
+    <span id="error"></span>
+
     <section id="randomMichis">
         <h2>Gatitos aleatorios</h2>
         <article>
@@ -48,18 +50,14 @@
             <button>Guardar en favoritos</button>
         </article>
 
-        <article>
-            <img id="image3" class="imageContainer" alt="foto-gatito-random">
-            <button>Guardar en favoritos</button>
-        </article>
-
         <div class="buttonContainer">
-            <button type="button" onclick="onClickNewImage()">Recargar</button>
+            <button type="button" onclick="loadRandomMichis()">Recargar</button>
         </div>
     </section>
 
     <section id="favoritesMichis">
         <h2>Gatitos favoritos</h2>
+
         <article>
             <img id="image3" class="imageContainer" alt="foto-gatito-random">
             <button>Sacar de favoritos</button>
