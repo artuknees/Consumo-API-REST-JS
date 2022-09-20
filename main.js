@@ -7,6 +7,15 @@ const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=2&api_k
 
 const spanError = document.getElementById('error');
 
+const load = async () => {
+    const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2';
+    const res = await fetch(API_URL_FAVOURITES);
+    console.log('Response: ',res);
+    const data = await res.json();
+    console.log(data);
+};
+
+
 const loadRandomMichis = async () => {
     const res = await fetch(API_URL_RANDOM);
     console.log('response random: ',res);
