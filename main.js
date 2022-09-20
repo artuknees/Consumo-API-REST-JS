@@ -1,7 +1,7 @@
 const API_KEY = 'live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR';
 
-const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2';
-// const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2&api_key=live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR'
+// const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2';
+const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2&api_key=live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR'
 
 const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=2&api_key=live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR';
 
@@ -37,6 +37,21 @@ const loadFavoritesMichis = async () => {
         console.log(data);
     };
 };
+
+const saveFavourite = async () => {
+    const res = await fetch(API_URL_FAVOURITES , {
+        method:'POST', // por defecto es un GET
+        header: { // el tipo de respuesta que estoy esperando
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+            image_id: 12
+        }), 
+    });
+    const data = await res.json();
+    console.log('save: ',res);
+};
+
 
 loadRandomMichis(); // para que recargue al hacer F5
 loadFavoritesMichis(); // llamo tambien a los favoritos
