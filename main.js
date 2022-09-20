@@ -8,34 +8,53 @@ const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=2&api_k
 const spanError = document.getElementById('error');
 
 const loadRandomMichis = async () => {
-    const response = await fetch(API_URL_RANDOM);
-    const data = await response.json();
-    // console.log('Random');
-    // console.log(data);
+    const res = await fetch(API_URL_RANDOM);
+    console.log('response random: ',res);
+    if(res.status!==200){
+        try {
+            console.log('voy a internar');
+            const data = await res.json();
+            console.log('falle');
+            console.log(data);
+        } catch(err) {
+            console.log('me vine al error');
+            console.error(err);
+            console.log('Error: ',err);
+            spanError.innerText = "Hubo un error: " + res.status + ' - ' + err;
+        }
+    } else {
+        const data = await res.json();
+        console.log('Random: ',data);
 
-    // if (response.status !== 200) {
-    //     spanError.innerHTML = "Hubo un error: " + response.status;
-    // } else {    
         const img1 = document.getElementById('image1');
         const img2 = document.getElementById('image2');
 
         img1.src = data[0].url;
         img2.src = data[1].url;
-    // }
+        }
 };
 
 const loadFavoritesMichis = async () => {
-    const response = await fetch(API_URL_FAVOURITES);
+            
+    const res = await fetch(API_URL_FAVOURITES);
+    console.log('response favourites: ',res);
+    if(res.status!==200){
+        try {
+            console.log('voy a internar en favs');
+            const data = await res.json();
+            console.log('falle');
+            console.log(data);
+        } catch(err) {
+            console.log('me vine al error en favs');
+            console.error(err); // to console it as an error
+            console.log('Error at favourites: ',err); // console it as string
+            spanError.innerText = "Hubo un error: " + res.status + ' - ' + err;
 
-    if (response.status !== 200) {
-        console.log('Error en favoritos');
-        console.log(response);
-        spanError.innerText = "Hubo un error: " + response.status;
+        }
     } else {
-        const data = await response.json();
-        console.log('Favourites');
-        console.log(data);
-    };
+        const data = await res.json();
+        console.log('Favourites: ',data);
+    }
 };
 
 const saveFavourite = async () => {
