@@ -4,21 +4,16 @@
 const API_KEY = 'live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR';
 
 // const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2';
-const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites'
+const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites';
+
+const API_URL_UPLOAD = 'https://api.thecatapi.com/v1/images/upload';
+
 
 const API_URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=2';
 
 const API_URL_FAVOURITES_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
 
 const spanError = document.getElementById('error');
-
-// const load = async () => {
-//     const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2';
-//     const res = await fetch(API_URL_FAVOURITES);
-//     console.log('Response: ',res);
-//     const data = await res.json();
-//     console.log(data);
-// };
 
 const loadRandomMichis = async () => {
     const res = await fetch(API_URL_RANDOM);
@@ -165,6 +160,46 @@ const deleteFavourite = async (id) => {
         console.log('Gato eliminado de favoritos');
         loadFavoritesMichis();
     };
+};
+
+const uploadPhoto = async () => {
+    const form = document.getElementById('uploadingForm');
+    const formData = new FormData(form); // le envio mi form al constructor de FormData
+    console.log(formData.get('file'));
+
+    const res = await fetch(API_URL_UPLOAD,{
+        method: 'POST',
+        headers: {
+            // 'Content-Type': 'multipart/form-data',
+            'X-API-KEY': API_KEY,
+        },
+        body: formData,
+    })
+    
+    if(res.status!==201){
+        try {
+            console.log('voy a internar en delete favos');
+            const data = await res.json();
+            console.log('falle');
+            console.log(data);
+        } catch(err) {
+            console.log('me vine al error en favs delete');
+            console.error(err); // to console it as an error
+            console.log('Error at favourites: ',err); // console it as string
+            spanError.innerText = "Hubo un error: " + res.status + ' - ' + err;
+        }
+    } else {
+        console.log('Foto subida correctamente');
+        const data = await res.json();
+
+        console.log(data);
+        saveFavourite(data.id);
+        // loadFavoritesMichis();
+    };
+
+
+
+
 };
 
 loadRandomMichis(); // para que recargue al hacer F5
