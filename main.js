@@ -1,6 +1,13 @@
 // Para el curso
 // https://developers.thecatapi.com/
 
+const api = axios.create({
+    baseURL: 'https://api.thecatapi.com/v1'
+});
+// setup del auth - desde documentacion.
+api.defaults.headers.common['X-API-KEY'] = 'live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR';
+
+
 const API_KEY = 'live_RrvbyXnUF9NzymQk9bziXj81T9169lW9DTBTt6KIRGHfFIcG8SqKDusNLP1oTqGR';
 
 // const API_URL_FAVOURITES = 'https://api.thecatapi.com/v1/favourites?limit=2';
@@ -48,31 +55,19 @@ const loadRandomMichis = async () => {
 };
 
 const loadFavoritesMichis = async () => {
-            
-    const res = await fetch(API_URL_FAVOURITES
-        ,{
-        method: 'GET',
-        headers: {
-            'X-API-KEY': API_KEY,
-        },
-    }
-    );
-    console.log('response favourites: ',res);
-    if(res.status!==200){
+    const { data , status} = await api.get('/favourites',{});
+    console.log('response favourites: ',data);
+    console.log('status favourites load: ',status);
+
+    if(status!==200){
         try {
-            console.log('voy a internar en favs');
-            const data = await res.json();
-            console.log('falle');
             console.log(data);
         } catch(err) {
-            console.log('me vine al error en favs');
             console.error(err); // to console it as an error
             console.log('Error at favourites: ',err); // console it as string
-            spanError.innerText = "Hubo un error: " + res.status + ' - ' + err;
-
+            spanError.innerText = "Hubo un error: " + status + ' - ' + err;
         }
     } else {
-        const data = await res.json();
         console.log('Favourites: ',data);
         const section = document.getElementById('favoritesMichis');
         section.innerHTML = "";
@@ -99,33 +94,38 @@ const loadFavoritesMichis = async () => {
 };
 
 const saveFavourite = async (id) => {
-    const res = await fetch(API_URL_FAVOURITES , {
-        method:'POST', // por defecto es un GET
-        headers: { // el tipo de respuesta que estoy esperando
-            'Content-Type':'application/json',
-            // 'Content-Type':'text/plain', // con esto falla porque no lo soporta
-            'X-API-KEY': API_KEY,
-            
-        },
-        body: 
-        JSON.stringify({
-            image_id: id,
-        }), 
+    const { data , status} = await api.post('/favourites',{
+        image_id: id,
     });
-    const data = await res.json();
-    console.log('save: ',res);
 
-    if(res.status!==200){
+    // hecho con fetch
+    // const res = await fetch(API_URL_FAVOURITES , {
+    //     method:'POST', // por defecto es un GET
+    //     headers: { // el tipo de respuesta que estoy esperando
+    //         'Content-Type':'application/json',
+    //         // 'Content-Type':'text/plain', // con esto falla porque no lo soporta
+    //         'X-API-KEY': API_KEY,
+    //     },
+    //     body: 
+    //     JSON.stringify({
+    //         image_id: id,
+    //     }), 
+    // });
+    // const data = await res.json();
+
+    console.log('save: ',data);
+    console.log(status);
+
+    if(status!==200){
         try {
             console.log('voy a internar en save favs');
-            const data = await res.json();
             console.log('falle');
             console.log(data);
         } catch(err) {
             console.log('me vine al error en favs save');
             console.error(err); // to console it as an error
             console.log('Error at favourites: ',err); // console it as string
-            spanError.innerText = "Hubo un error: " + res.status + ' - ' + err;
+            spanError.innerText = "Hubo un error: " + status + ' - ' + err;
         }
     } else {
         console.log('Gato guardado en favoritos');
